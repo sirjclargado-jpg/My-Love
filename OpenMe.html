@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Jar of Memories for You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass-color: rgba(255, 255, 255, 0.2);
+            --paper-color: #fff9c4;
+            --accent-pink: #ff8fa3;
+        }
+
+        body {
+            background: #fce4ec; /* Soft pink background */
+            font-family: 'Indie Flower', cursive;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #ad1457;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 10px;
+        }
+
+        /* The Jar Styling */
+        .jar-container {
+            position: relative;
+            width: 200px;
+            height: 280px;
+            background: var(--glass-color);
+            border: 4px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px 20px 80px 80px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1), inset 0 0 20px rgba(255,255,255,0.5);
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-end;
+            padding: 20px;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .jar-lid {
+            position: absolute;
+            top: -15px;
+            width: 120px;
+            height: 30px;
+            background: #b0bec5;
+            border-radius: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom: 4px solid #78909c;
+        }
+
+        /* The Paper Slips */
+        .paper-slip {
+            width: 40px;
+            height: 25px;
+            background: var(--paper-color);
+            margin: 3px;
+            border: 1px solid #f0e68c;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #888;
+            transition: transform 0.3s ease;
+        }
+
+        .paper-slip:hover {
+            transform: scale(1.2) translateY(-10px) rotate(10deg) !important;
+            background: #fff;
+        }
+
+        /* The Overlay/Modal */
+        #note-display {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            animation: fadeIn 0.4s;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 85%;
+            width: 400px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 20px var(--accent-pink);
+        }
+
+        .modal-content img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            font-size: 1.3rem;
+            color: #333;
+        }
+
+        .close-btn {
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: var(--accent-pink);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <h1>Pick a memory, love...</h1>
+
+    <div class="jar-container" id="jar">
+        <div class="jar-lid"></div>
+        </div>
+
+    <div id="note-display" onclick="closeNote()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="note-image" src="" alt="Memory Image">
+            <p id="note-text"></p>
+            <button class="close-btn" onclick="closeNote()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // ADD YOUR MEMORIES HERE!
+        const memories = [
+            { 
+                text: "I think I’ll go to sleep and see if I can dream of you.", 
+                img: "https://via.placeholder.com/400x300?text=Your+Photo+1" 
+            },
+            { 
+                text: "I’ve never been more home than I am with you.", 
+                img: "https://via.placeholder.com/400x300?text=Your+Photo+2" 
+            },
+            { 
+                text: "You're just as sane as I am.", 
+                img: "https://via.placeholder.com/400x300?text=Your+Photo+3" 
+            },
+            { 
+                text: "I am so proud of everything you do. Keep shining!", 
+                img: "https://via.placeholder.com/400x300?text=Your+Photo+4" 
+            }
+        ];
+
+        const jar = document.getElementById('jar');
+
+        // Create the paper slips dynamically
+        memories.forEach((m, index) => {
+            const slip = document.createElement('div');
+            slip.className = 'paper-slip';
+            slip.innerText = "♡";
+            
+            // Randomly rotate each slip for a messy 'jar' look
+            const randomRot = Math.floor(Math.random() * 60) - 30;
+            slip.style.transform = `rotate(${randomRot}deg)`;
+            
+            slip.onclick = () => openNote(index);
+            jar.appendChild(slip);
+        });
+
+        function openNote(index) {
+            const note = memories[index];
+            document.getElementById('note-text').innerText = note.text;
+            document.getElementById('note-image').src = note.img;
+            document.getElementById('note-display').style.display = 'flex';
+        }
+
+        function closeNote() {
+            document.getElementById('note-display').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
