@@ -52,16 +52,16 @@
     </div>
 
     <div id="counter-content">
-        <div class="photo-frame">
-            <img id="slideshow" src="IMG_20251226_181747_102.jpg,IMG_20260213_212838_369.jpg" alt="Our Picture">
+        <div class="photo-frame" onclick="nextPhoto()">
+            <img id="slideshow" src="IMG_20251226_181747_102.jpg" alt="Our Picture">
         </div>
-        <p class="tap-hint">Tap our Photos ✨</p>
+        <p style="font-size: 0.8rem; color: #d63384; margin-bottom: 20px;">Tap to see our moments ✨</p>
         <h1>Finally...</h1>
         <p>We've been together for:</p>
         <span class="days-highlight" id="days-count">0 Days</span>
         <p id="sub-count">0 hours, 0 minutes</p>
         <button class="btn" onclick="document.getElementById('secret-message').style.display='block'">Read My Heart</button>
-        <p id="secret-message">Happy Valentine's Day Babe! <br> Every day with you is my favorite day, even when we are far apart or together. <br> I know our love and hearts doesn't see the distance that hinders us. <br> I know sometimes magulo ako HAHAHA, mahirap intindihin, nakakainis, at maarte huhu <br> I don't know how yo still keep choosing me, I always see you as this person who can give me anything and it makes my heart safe and feel loved always <br> How can you choose me when I'm just like this babe? Thank you for giving me a love that is so real and genuine <br> Having you is like I can soar high and get our dreams together <br> Thank you babe for always being there, I promise that I will always be here for you and for us. <br> I'm ready to hear you, and will always be proud of what you and us will become in the future <br> I love you so much my love. Let's keep making memories until we are gray and old. ❤️</p>
+        <p id="secret-message">Happy Valentine's Day Babe! <br> Every day with you is my favorite day, even when we are far apart or together. <br> I know our love and hearts doesn't see the distance that hinders us. <br> I know sometimes magulo ako HAHAHA, mahirap intindihin, nakakainis, at maarte huhu <br> I don't know how yo still keep choosing me, I always see you as this person who can give me anything and it makes my heart safe and feel loved always <br> How can you choose me when I'm just like this babe? Thank you for giving me a love that is so real and genuine <br> Having you is like I can soar high and get our dreams together <br> Thank you babe for always being there, I promise that I will always be here for you and for us. <br> I'm ready to hear you, and will always be proud of what you and us will become in the future <br> I love you more than words can say. <br> Let's keep making memories until we are gray and old. ❤️</p>
     </div>
 </div>
 
@@ -70,7 +70,24 @@
     const anniversary = new Date(2024, 7, 3); 
 
     // 2. SET THE UNLOCK TIME (Feb 14, 2026, 7:00 AM)
-    const unlockTime = new Date(2026, 1, 13, 21, 0, 0); 
+    const unlockTime = new Date(2026, 1, 13, 21, 0, 0);
+
+    const photos = [
+        "IMG_20251226_181747_102.jpg", 
+        "IMG_20260213_212838_369.jpg",
+        "IMG_20260213_212817_657.jpg",
+        "IMG_20260213_212748_526.jpg",
+        "IMG_20260213_212729_836.jpg",
+        "IMG_20260213_212729_934.jpg",
+        "IMG_20251226_181747_102.jpg"
+        
+    ];
+    let currentIdx = 0;
+
+    function nextPhoto() {
+        currentIdx = (currentIdx + 1) % photos.length;
+        document.getElementById('slideshow').src = photos[currentIdx];
+    }
 
     let heartsInterval;
 
