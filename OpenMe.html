@@ -14,18 +14,18 @@
         
         /* Photo Styling */
         .photo-frame {
-            width: 180px;
-            height: 180px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
-            border: 5px solid white;
+            border: 6px solid white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             margin: 0 auto 20px auto;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden; 
+            cursor: pointer;
             background: #eee;
+            transition: transform 0.2s;
         }
+        .photo-frame:active { transform: scale(0.95); }
         .photo-frame img {
             width: 100%;
             height: 100%;
@@ -33,11 +33,12 @@
         }
 
         .days-highlight { display: block; font-size: 3rem; font-weight: 500; color: #4a4a4a; margin: 10px 0; }
-        .btn { background: #d63384; color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer-events: none; margin-top: 20px; font-weight: 500; }
+        .tap-hint { font-size: 0.8rem; color: #d63384; margin-top: -10px; margin-bottom: 20px; font-weight: 500; }
+        .btn { background: #d63384; color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; margin-top: 20px; }
         #secret-message { margin-top: 20px; display: none; font-style: italic; color: #d63384; line-height: 1.6; }
 
         /* Heart Animation */
-        .heart { position: absolute; top: -10%; color: #ffb7c5; font-size: 20px; user-select: none; z-index: 1; animation: fall linear forwards; }
+        .heart { position: absolute; top: -10%; color: #ffb7c5; font-size: 20px; user-select: none; z-index: 1; pointer-events: none; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
     </style>
 </head>
@@ -52,13 +53,14 @@
 
     <div id="counter-content">
         <div class="photo-frame">
-            <img src="IMG_20251226_181747_102.jpg" alt="Our Picture">
+            <img id="slideshow" src="IMG_20251226_181747_102.jpg, IMG_20260213_212838_369.jpg, IMG_20260213_212817_657.jpg, IMG_20260213_212809_633.jpg, IMG_20260213_212748_526.jpg, IMG_20260213_212748_526.jpg, IMG_20260213_212715_934.jpg" alt="Our Picture">
         </div>
+        <p class="tap-hint">Tap our Photos ✨</p>
         <h1>Finally...</h1>
         <p>We've been together for:</p>
         <span class="days-highlight" id="days-count">0 Days</span>
         <p id="sub-count">0 hours, 0 minutes</p>
-        <button class="btn" onclick="document.getElementById('secret-message').style.display='block'">Read My Note</button>
+        <button class="btn" onclick="document.getElementById('secret-message').style.display='block'">Read My Heart</button>
         <p id="secret-message">Happy Valentine's Day Babe! <br> Every day with you is my favorite day, even when we are far apart or together. <br> I know our love and hearts doesn't see the distance that hinders us. <br> I know sometimes magulo ako HAHAHA, mahirap intindihin, nakakainis, at maarte huhu <br> I don't know how yo still keep choosing me, I always see you as this person who can give me anything and it makes my heart safe and feel loved always <br> How can you choose me when I'm just like this babe? Thank you for giving me a love that is so real and genuine <br> Having you is like I can soar high and get our dreams together <br> Thank you babe for always being there, I promise that I will always be here for you and for us. <br> I'm ready to hear you, and will always be proud of what you and us will become in the future <br> I love you so much my love. Let's keep making memories until we are gray and old. ❤️</p>
     </div>
 </div>
