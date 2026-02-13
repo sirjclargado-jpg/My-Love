@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Valentine's Surprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #fdf2f2; font-family: 'Montserrat', sans-serif; color: #4a4a4a; text-align: center; overflow: hidden; }
+        .container { padding: 20px; max-width: 400px; position: relative; z-index: 10; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; margin-bottom: 10px; color: #d63384; }
+        #counter-content { display: none; }
+        #lock-screen { display: block; }
+        
+        /* Photo Styling */
+        .photo-frame {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 0 auto 20px auto;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #eee;
+        }
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .days-highlight { display: block; font-size: 3rem; font-weight: 500; color: #4a4a4a; margin: 10px 0; }
+        .btn { background: #d63384; color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; margin-top: 20px; font-weight: 500; }
+        #secret-message { margin-top: 20px; display: none; font-style: italic; color: #d63384; line-height: 1.6; }
+
+        /* Heart Animation */
+        .heart { position: absolute; top: -10%; color: #ffb7c5; font-size: 20px; user-select: none; z-index: 1; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="lock-screen">
+        <h1>Soon...</h1>
+        <p>Your surprise unlocks in:</p>
+        <div id="countdown-timer" class="days-highlight">00:00:00</div>
+    </div>
+
+    <div id="counter-content">
+        <div class="photo-frame">
+            <img src="us.jpg" alt="Our Picture">
+        </div>
+        <h1>Finally...</h1>
+        <p>We've been together for:</p>
+        <span class="days-highlight" id="days-count">0 Days</span>
+        <p id="sub-count">0 hours, 0 minutes</p>
+        <button class="btn" onclick="document.getElementById('secret-message').style.display='block'">Read My Note</button>
+        <p id="secret-message">Happy Valentine's Day Babe! <br> Every day with you is my favorite day, even when we are far apart or together. <br> I know our love and hearts doesn't see the distance that hinders us. <br> I love you so much my love. Let's keep making memories until we are gray and old. ❤️</p>
+    </div>
+</div>
+
+<script>
+    // 1. SET YOUR ANNIVERSARY (Year, Month (0-11), Day)
+    const anniversary = new Date(2024, 7, 3); 
+
+    // 2. SET THE UNLOCK TIME (Feb 14, 2026, 7:00 AM)
+    const unlockTime = new Date(2026, 1, 13, 20, 4, 0); 
+
+    let heartsInterval;
+
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+        heart.style.opacity = Math.random();
+        document.body.appendChild(heart);
+        setTimeout(() => { heart.remove(); }, 5000);
+    }
+
+    function checkTime() {
+        const now = new Date();
+        if (now >= unlockTime) {
+            document.getElementById('lock-screen').style.display = 'none';
+            document.getElementById('counter-content').style.display = 'block';
+            updateAnniversaryCounter(now);
+            if (!heartsInterval) heartsInterval = setInterval(createHeart, 300);
+        } else {
+            const diff = unlockTime - now;
+            const h = Math.floor(diff / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            document.getElementById('countdown-timer').innerText = 
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+    }
+
+    function updateAnniversaryCounter(now) {
+        const diff = now - anniversary;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / 1000 / 60) % 60);
+        document.getElementById('days-count').innerText = days + " Days";
+        document.getElementById('sub-count').innerText = `${hours} hours and ${mins} minutes`;
+    }
+
+    setInterval(checkTime, 1000);
+    checkTime();
+</script>
+
+</body>
+</html>
